@@ -25,9 +25,6 @@ int persistence(long long n){
         mod = 1;
         count++;
     }
-    
-    
-    std::cout<<mod<<std::endl;
     return count;
 }
 
