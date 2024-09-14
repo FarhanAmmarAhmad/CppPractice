@@ -19,7 +19,7 @@ class BankAccount {
         int accountNumber = 0;
         string name = "";
         double balance = 0.0;
-        bool activeStatus = false;
+        bool activeStatus = true;
         
         // Static member variable to keep track of the total active accounts
         static int totalActiveAccounts;
@@ -29,12 +29,12 @@ class BankAccount {
         BankAccount() : accountNumber(0), name(""), balance(0.0), activeStatus(false) {}
 
         // Constructors with initialization lists
-        BankAccount(int accountNum) : accountNumber(accountNum), balance(0.0), activeStatus(false) {}
+        BankAccount(int accountNum) : accountNumber(accountNum), balance(0.0), activeStatus(true) {++totalActiveAccounts;}
 
-        BankAccount(int accountNum, string nameHolder) : accountNumber(accountNum), name(nameHolder), balance(0.0), activeStatus(false) {}
+        BankAccount(int accountNum, string nameHolder) : accountNumber(accountNum), name(nameHolder), balance(0.0), activeStatus(true) {++totalActiveAccounts;}
 
         BankAccount(int accountNum, string nameHolder, double initialDeposit)
-            : accountNumber(accountNum), name(nameHolder), balance(initialDeposit), activeStatus(false) {}
+            : accountNumber(accountNum), name(nameHolder), balance(initialDeposit), activeStatus(true) {++totalActiveAccounts;}
 
         BankAccount(int accountNum, string nameHolder, double initialDeposit, bool status)
             : accountNumber(accountNum), name(nameHolder), balance(initialDeposit), activeStatus(status) {
@@ -60,6 +60,7 @@ class BankAccount {
         ~BankAccount() {
             if (activeStatus) {
                 --totalActiveAccounts;  // Decrement the count of active accounts when account is destroyed
+                cout << "Bank account # : " << accountNumber << " has been destroyed." << endl;
             }
         }
 };
@@ -75,11 +76,18 @@ int main(int argc, char const **argv) {
     BankAccount account5(1288, "Ahmad", 200, true);
     
     account1.accountInformation();
-    account2.accountInformation();
-    account3.accountInformation();
-    account4.accountInformation();
-    account5.accountInformation();
+    cout << "Total Active Accounts: " << BankAccount::getTotalActiveAccounts() << endl;
 
+    account2.accountInformation();
+    cout << "Total Active Accounts: " << BankAccount::getTotalActiveAccounts() << endl;
+
+    account3.accountInformation();
+    cout << "Total Active Accounts: " << BankAccount::getTotalActiveAccounts() << endl;    
+
+    account4.accountInformation();
+    cout << "Total Active Accounts: " << BankAccount::getTotalActiveAccounts() << endl;
+    
+    account5.accountInformation();
     cout << "Total Active Accounts: " << BankAccount::getTotalActiveAccounts() << endl;
 
     return 0;
